@@ -10,14 +10,14 @@ function App() {
   const [ selected, setSelected ] = useState({});
   const [ currentPosition, setCurrentPosition ] = useState({});
   const dispatch = useDispatch();
-  
+  const alderaan = useSelector(store => store.youMayFireWhenReady);
+
+  console.log('FIRE FIRE FIRE',alderaan);
 
   useEffect(() => {
     dispatch({type: 'whispering!screams!case'})
   });
-  const alderaan = useSelector(store => store.youMayFireWhenReady);
-
-  console.log('FIRE FIRE FIRE',alderaan);
+  
 
   const sendCurrentPosition = position => {
     console.log(position);
