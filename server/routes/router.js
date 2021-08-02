@@ -15,13 +15,24 @@ router.post('/', (req, res) => {
     )
  
     .then((response) => {
-        console.log('OMG what is this',response.data.result.addressMatches[0].coordinates); 
+        console.log('OMG what is this',response.data.result.addressMatches[0].coordinates);
+        const lat = response.data.result.addressMatches[0].coordinates.y;
+        const lng = response.data.result.addressMatches[0].coordinates.x;
+        pool.query(`
+        INSERT INTO "smush" (location)
+        VALUES ('{ "lat": ${lat}, "lng": ${lng} }');`)
+        .then (result => {
+            res.sendStatus(201);
+        })
+        .catch(error => {
+            console.log('Error COORDINATES POSTING',error);
+            res.sendStatus(501)
+          })
     })
     .catch((err) => {
         console.log('this is an error',err);
         res.sendStatus(500)
     })
-
 });
 
 router.get('/', (req, res) => {

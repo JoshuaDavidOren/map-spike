@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/api';
 import './App.css';
 import Form from './Form';
@@ -14,9 +14,10 @@ function App() {
 
   console.log('FIRE FIRE FIRE',alderaan);
 
-  useEffect(() => {
+  const button = (event) => {
+    event.preventDefault()
     dispatch({type: 'whispering!screams!case'})
-  });
+  };
   
 
   const sendCurrentPosition = position => {
@@ -88,7 +89,10 @@ function App() {
 
     <section>
       <Form/>
-      <div><button onClick={locate()}>ME</button></div>
+      <div>
+      <button onClick={(event) => button(event)}>DB locations</button>
+      <button onClick={locate()}>ME</button>
+      </div>
        <LoadScript
          googleMapsApiKey={`${process.env.react_app_google_api}`}>
           <GoogleMap
