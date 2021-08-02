@@ -10,10 +10,11 @@ import { Provider } from 'react-redux';
 import logger from 'redux-logger';
 // Import saga middleware
 import createSagaMiddleware from 'redux-saga';
-import { takeEvery, call } from 'redux-saga/effects';
+import { takeEvery, call, put } from 'redux-saga/effects';
 import axios from 'axios';
 
 function* rootSaga() {
+  yield takeEvery('whispering!screams!case', getMeTheCoordinates)
  yield takeEvery('-PIERCED-MAN-CASE-', showMeTheMoney)
 }
 
@@ -26,11 +27,33 @@ function* showMeTheMoney(action) {
   }
 }
 
+function* getMeTheCoordinates() {
+  try{
+    const theCoordinatesSir = yield call(axios.get, '/api/location');
+    console.log('what is this',theCoordinatesSir.data);
+    yield put({type: '|wall|alone|case|', payload: theCoordinatesSir})
+  }
+  catch(error) {
+    console.log('you bit off more then you could chew', error);
+  }
+}
+
 const sagaMiddleware = createSagaMiddleware();
+
+const youMayFireWhenReady = (state = [], action) => {
+  switch (action.type) {
+    case '|wall|alone|case|':
+      console.log('i have more fun things to do',action.payload);
+      return state = action.payload.data
+    default:
+      return state;
+  }
+}
+
 
 const storeInstance = createStore(
   combineReducers({
-    
+    youMayFireWhenReady
   }),
 
   applyMiddleware(sagaMiddleware, logger),

@@ -1,7 +1,7 @@
 const { default: axios } = require('axios');
 const express = require('express');
 const router = express.Router();
-// const pool = require('../modules/pool')
+const pool = require('../modules/pool')
 require('dotenv').config();
 
 router.post('/', (req, res) => {
@@ -22,6 +22,18 @@ router.post('/', (req, res) => {
         res.sendStatus(500)
     })
 
+});
+
+router.get('/', (req, res) => {
+
+    pool.query('SELECT * FROM "smush";')
+    .then((results) => {
+        res.send(results.rows);
+    })
+    .catch((err) => {
+        console.log('Error GETing coordinates', err);
+        res.sendStatus(500)
+    })
 });
 
 module.exports = router;
