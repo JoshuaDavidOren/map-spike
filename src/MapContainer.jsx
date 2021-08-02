@@ -9,7 +9,6 @@ const [ selected, setSelected ] = useState({});
   const dispatch = useDispatch();
   const alderaan = useSelector(store => store.youMayFireWhenReady);
 
-  console.log('FIRE FIRE FIRE',alderaan);
 
   useEffect(() => {
     dispatch({type: 'whispering!screams!case'})
@@ -65,7 +64,7 @@ const [ selected, setSelected ] = useState({});
                 )
             })
            }
-           
+
            {
               selected.location &&
               (
@@ -74,7 +73,7 @@ const [ selected, setSelected ] = useState({});
                 clickable={true}
                 onCloseClick={() => setSelected({})}
               >
-                <p>{selected.name}</p>
+                <p>{selected.id}</p>
               </InfoWindow>
               )
            }
