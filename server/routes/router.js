@@ -13,9 +13,9 @@ router.post('/', (req, res) => {
 
     axios.get(`${process.env.census_search_api}&street=${address}&city=${city}&state=${state}&zipCode=${zip}`
     )
-    // .addressMatches[0].coordinates
+ 
     .then((response) => {
-        console.log('OMG what is this',response.result); 
+        console.log('OMG what is this',response.data.result.addressMatches[0].coordinates); 
     })
     .catch((err) => {
         console.log('this is an error',err);
