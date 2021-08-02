@@ -21,6 +21,7 @@ function* rootSaga() {
 function* showMeTheMoney(action) {
   try{
     yield call(axios.post, '/api/location', action.payload);
+    yield put({type: 'whispering!screams!case'})
   }
   catch(error) {
     console.log('you bit off more then you could chew', error);
@@ -32,6 +33,7 @@ function* getMeTheCoordinates() {
     const theCoordinatesSir = yield call(axios.get, '/api/location');
     console.log('what is this',theCoordinatesSir.data);
     yield put({type: '|wall|alone|case|', payload: theCoordinatesSir})
+    
   }
   catch(error) {
     console.log('you bit off more then you could chew', error);
